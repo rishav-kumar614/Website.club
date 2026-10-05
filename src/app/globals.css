@@ -7690,3 +7690,147 @@ body::after {
   color: var(--color-muted);
 }
 
+/* =========================================================
+   3D Butterfly CSS Fallback Stage
+   ========================================================= */
+.bf-butterfly-wrap {
+  position: absolute;
+  top: 48%;
+  left: 68%;
+  width: 140px;
+  height: 120px;
+  transform: translate(-50%, -50%) translateZ(calc(var(--z) * 12px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.bf-spine {
+  position: relative;
+  width: 12px;
+  height: 64px;
+  background: linear-gradient(180deg, #0b1124 0%, #1e293b 100%);
+  border-radius: 999px;
+  z-index: 3;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.bf-head {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  background: #060b18;
+  border-radius: 50%;
+  border: 1px solid rgba(56, 189, 248, 0.6);
+}
+
+.bf-antenna-l, .bf-antenna-r {
+  position: absolute;
+  top: -14px;
+  width: 10px;
+  height: 12px;
+  border: 1.5px solid #38bdf8;
+  border-bottom: none;
+  border-radius: 50% 50% 0 0;
+}
+.bf-antenna-l { left: -7px; transform: rotate(-25deg); border-right: none; }
+.bf-antenna-r { right: -7px; transform: rotate(25deg); border-left: none; }
+
+.bf-wing {
+  position: absolute;
+  top: 50%;
+  width: 72px;
+  height: 96px;
+  border-radius: 65% 35% 55% 45% / 55% 65% 35% 45%;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.75) 0%, rgba(56, 189, 248, 0.55) 50%, rgba(168, 85, 247, 0.6) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  transform-origin: center right;
+  animation: bfFlapL 1.2s ease-in-out infinite alternate;
+}
+
+.bf-wing-r {
+  left: 50%;
+  transform-origin: center left;
+  transform: translateY(-50%) scaleX(-1);
+  animation: bfFlapR 1.2s ease-in-out infinite alternate;
+}
+
+.bf-wing-l {
+  right: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes bfFlapL {
+  0% { transform: translateY(-50%) rotateY(0deg); }
+  100% { transform: translateY(-50%) rotateY(55deg); }
+}
+
+@keyframes bfFlapR {
+  0% { transform: translateY(-50%) scaleX(-1) rotateY(0deg); }
+  100% { transform: translateY(-50%) scaleX(-1) rotateY(55deg); }
+}
+
+/* =========================================================
+   3D Isometric Cube CSS Fallback Stage
+   ========================================================= */
+.cb-cube-wrap {
+  position: absolute;
+  top: 48%;
+  left: 68%;
+  width: 140px;
+  height: 140px;
+  transform: translate(-50%, -50%) translateZ(calc(var(--z) * 12px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cb-isometric-box {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  transform: rotateX(60deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+  animation: cubeTumble 8s linear infinite;
+}
+
+.cb-face {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(56, 189, 248, 0.7);
+  background: rgba(37, 99, 235, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.cb-top { transform: translateZ(38px); background: rgba(56, 189, 248, 0.35); }
+.cb-left { transform: rotateY(90deg) translateZ(-38px); transform-origin: left; }
+.cb-right { transform: rotateX(-90deg) translateZ(-38px); transform-origin: top; }
+
+.cb-inner-photon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%) translateZ(19px);
+  background: radial-gradient(circle, #38bdf8 0%, rgba(37, 99, 235, 0.2) 70%, transparent 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 16px #38bdf8;
+}
+
+@keyframes cubeTumble {
+  0% { transform: rotateX(55deg) rotateZ(45deg); }
+  50% { transform: rotateX(75deg) rotateZ(225deg); }
+  100% { transform: rotateX(55deg) rotateZ(405deg); }
+}
+
+

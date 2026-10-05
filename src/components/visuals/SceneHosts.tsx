@@ -8,7 +8,9 @@ import { Tilt } from "./Tilt";
 
 // Heavy scenes are separate chunks, fetched only after idle + capability checks.
 const HeroScene = dynamic(() => import("./scenes/HeroScene"), { ssr: false });
+const CubeScene = dynamic(() => import("./scenes/CubeScene"), { ssr: false });
 const FinalScene = dynamic(() => import("./scenes/FinalScene"), { ssr: false });
+import { CubeFallback } from "./CubeFallback";
 
 /**
  * Hero visual. The CSS-3D fallback renders immediately (so first paint is complete
@@ -30,6 +32,30 @@ export function HeroVisual() {
       {cap.enabled && (
         <div className={`canvas-wrap ${ready ? "on" : ""}`}>
           <HeroScene lite={cap.lite} active={visible} onReady={() => setReady(true)} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Cube visual for the Custom Bespoke page.
+ */
+export function CubeVisual() {
+  const cap = use3DCapability();
+  const [ref, visible] = useInView<HTMLDivElement>({ once: false, margin: "80px" });
+  const [ready, setReady] = useState(false);
+
+  return (
+    <div ref={ref} className="hero-visual">
+      <div className={`hero-fallback ${ready ? "off" : ""}`}>
+        <Tilt max={8}>
+          <CubeFallback />
+        </Tilt>
+      </div>
+      {cap.enabled && (
+        <div className={`canvas-wrap ${ready ? "on" : ""}`}>
+          <CubeScene lite={cap.lite} active={visible} onReady={() => setReady(true)} />
         </div>
       )}
     </div>

@@ -1,12 +1,12 @@
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://websiteclub.com";
 
 export const NAV_LINKS = [
-  { label: "Websites", href: "#websites" },
-  { label: "Custom", href: "#custom" },
-  { label: "Transform", href: "#transform" },
-  { label: "Work", href: "#work" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
+  { label: "Websites", href: "/#websites" },
+  { label: "Custom 3D", href: "/custom" },
+  { label: "Transform", href: "/#transform" },
+  { label: "Work", href: "/#work" },
+  { label: "Performance", href: "/#performance" },
+  { label: "Pricing", href: "/#pricing" },
 ] as const;
 
 export const SERVICES = [

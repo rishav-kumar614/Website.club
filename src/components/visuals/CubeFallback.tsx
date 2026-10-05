@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 
 const z = (n: number) => ({ "--z": n }) as CSSProperties;
 
-export function EyeFallback({ className = "" }: { className?: string }) {
+export function CubeFallback({ className = "" }: { className?: string }) {
   return (
     <div className={`dim ${className}`} aria-hidden="true">
       <div className="dim-rig">
@@ -32,19 +32,14 @@ export function EyeFallback({ className = "" }: { className?: string }) {
           <u />
           <u />
         </div>
-        {/* Centerpiece 3D Cyber Butterfly */}
-        <div className="dim-l bf-butterfly-wrap" style={z(5)}>
-          <div className="bf-wing bf-wing-l">
-            <div className="bf-wing-sheen" />
-          </div>
-          <div className="bf-spine">
-            <div className="bf-antenna-l" />
-            <div className="bf-antenna-r" />
-            <div className="bf-head" />
-            <div className="bf-thorax" />
-          </div>
-          <div className="bf-wing bf-wing-r">
-            <div className="bf-wing-sheen" />
+
+        {/* Centerpiece 3D Isometric Cube Fallback */}
+        <div className="dim-l cb-cube-wrap" style={z(5)}>
+          <div className="cb-isometric-box">
+            <div className="cb-face cb-top" />
+            <div className="cb-face cb-left" />
+            <div className="cb-face cb-right" />
+            <div className="cb-inner-photon" />
           </div>
         </div>
       </div>
