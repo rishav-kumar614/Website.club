@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import { useInView } from "@/lib/hooks";
 import { Reveal, RevealText } from "./ui/Reveal";
+import { ButterflyVisual } from "./visuals/SceneHosts";
 
 const UPGRADE_FEATURES = [
   {
@@ -190,6 +191,51 @@ export function Transformation() {
               {/* Slider Bottom Hint Bar */}
               <div className="ba-bottom-hint">
                 <span className="hint-pill">◄ Drag slider to compare flat 2D vs. 3D WebGL ►</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Live 3D Metamorphosis Specimen Showcase: 3D Butterfly */}
+        <Reveal delay={120} className="transform-butterfly-showcase">
+          <div className="butterfly-showcase-card">
+            <div className="butterfly-card-glow" aria-hidden="true" />
+            <div className="butterfly-showcase-grid">
+              <div className="butterfly-info-pane">
+                <div className="butterfly-badge">
+                  <span className="badge-pulse" />
+                  <span>3D METAMORPHOSIS ENGINE</span>
+                </div>
+                <h3 className="butterfly-title">
+                  From Flat Canvas to Living Spatial Biology
+                </h3>
+                <p className="butterfly-desc">
+                  Every 3D upgrade is custom-engineered with real-time procedural physics. Interact with this living butterfly specimen — rendered with organic dual-pivot wing flutter, iridescent procedural lighting, and live cursor guidance.
+                </p>
+                <div className="butterfly-specs-row">
+                  <div className="bf-spec">
+                    <span className="bf-spec-val">60 FPS</span>
+                    <span className="bf-spec-lbl">Fluid Flight</span>
+                  </div>
+                  <div className="bf-spec">
+                    <span className="bf-spec-val">Dual Pivot</span>
+                    <span className="bf-spec-lbl">Wing Kinetics</span>
+                  </div>
+                  <div className="bf-spec">
+                    <span className="bf-spec-val">WebGL</span>
+                    <span className="bf-spec-lbl">Real-time Shaders</span>
+                  </div>
+                </div>
+                <div className="butterfly-interactive-hint">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 8v8M8 12h8" />
+                  </svg>
+                  <span>Move your mouse across the viewport to guide flight angle</span>
+                </div>
+              </div>
+              <div className="butterfly-viewport-pane">
+                <ButterflyVisual />
               </div>
             </div>
           </div>

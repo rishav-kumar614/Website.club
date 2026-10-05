@@ -10,6 +10,7 @@ import { Tilt } from "./Tilt";
 const HeroScene = dynamic(() => import("./scenes/HeroScene"), { ssr: false });
 const CubeScene = dynamic(() => import("./scenes/CubeScene"), { ssr: false });
 const FinalScene = dynamic(() => import("./scenes/FinalScene"), { ssr: false });
+const ButterflyScene = dynamic(() => import("./scenes/ButterflyScene"), { ssr: false });
 import { CubeFallback } from "./CubeFallback";
 
 /**
@@ -86,3 +87,19 @@ export function FinalObject() {
     </div>
   );
 }
+
+export function ButterflyVisual() {
+  const cap = use3DCapability();
+  const [ref, visible] = useInView<HTMLDivElement>({ once: false, margin: "100px" });
+
+  return (
+    <div ref={ref} className="butterfly-visual-stage" aria-hidden="true">
+      {cap.enabled && (
+        <div className="canvas-wrap on">
+          <ButterflyScene lite={cap.lite} active={visible} />
+        </div>
+      )}
+    </div>
+  );
+}
+

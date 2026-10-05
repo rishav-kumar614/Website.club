@@ -9,8 +9,8 @@ const ACCENT = "#3A64F0";
 const ACCENT_GLOW = "#5E8BFF";
 const ACCENT_LIGHT = "#9FB2EE";
 
-/** Procedural iridescent butterfly wing texture with delicate organic veins & luminous margins */
-function createButterflyWingTexture() {
+/** Procedural high-definition Iris texture with radial stroma fibers, depth & collarette. */
+function createIrisCanvasTexture() {
   if (typeof document === "undefined") return null;
   const size = 1024;
   const canvas = document.createElement("canvas");
@@ -19,62 +19,84 @@ function createButterflyWingTexture() {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
-  // Rich Iridescent Base (Midnight Cobalt -> Electric Royal Blue -> Sky Cyan -> Luminous Violet)
-  const grad = ctx.createLinearGradient(0, size, size, 0);
-  grad.addColorStop(0, "#03081a");
-  grad.addColorStop(0.25, "#0e3498");
-  grad.addColorStop(0.55, "#2563eb");
-  grad.addColorStop(0.8, "#38bdf8");
-  grad.addColorStop(1, "#a855f7");
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, size, size);
+  const cx = size / 2;
+  const cy = size / 2;
+  const radius = size / 2 - 12;
 
-  // Structural Wing Cells & Fine Vein Architecture
+  // Base Iris Radial Gradient
+  const baseGrad = ctx.createRadialGradient(cx, cy, radius * 0.12, cx, cy, radius);
+  baseGrad.addColorStop(0, "#081028");
+  baseGrad.addColorStop(0.2, "#13317d");
+  baseGrad.addColorStop(0.48, "#255cd8");
+  baseGrad.addColorStop(0.78, "#4285f4");
+  baseGrad.addColorStop(0.92, "#1d3d8f");
+  baseGrad.addColorStop(1, "#060c1c");
+  ctx.fillStyle = baseGrad;
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Hundreds of Organic Radial Fibers
   ctx.save();
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
-  ctx.lineWidth = 2.8;
-  const rootX = 60;
-  const rootY = size * 0.52;
+  ctx.translate(cx, cy);
+  const fiberCount = 480;
+  for (let i = 0; i < fiberCount; i++) {
+    const angle = (i / fiberCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.025;
+    const rStart = radius * (0.24 + Math.random() * 0.08);
+    const rEnd = radius * (0.94 + Math.random() * 0.06);
 
-  const branchAngles = [
-    -0.88, -0.68, -0.48, -0.28, -0.08, 0.12, 0.32, 0.52, 0.72, 0.92
-  ];
-
-  for (const ang of branchAngles) {
+    ctx.save();
+    ctx.rotate(angle);
     ctx.beginPath();
-    ctx.moveTo(rootX, rootY);
-    const len = size * 0.88;
-    const cp1x = rootX + Math.cos(ang) * (len * 0.45);
-    const cp1y = rootY + Math.sin(ang) * (len * 0.45);
-    const endX = rootX + Math.cos(ang) * len;
-    const endY = rootY + Math.sin(ang) * len;
-    ctx.quadraticCurveTo(cp1x, cp1y, endX, endY);
+    ctx.moveTo(rStart, 0);
+    const midR = (rStart + rEnd) / 2;
+    const curveOffset = (Math.random() - 0.5) * 7;
+    ctx.quadraticCurveTo(midR, curveOffset, rEnd, 0);
+
+    const colors = [
+      "rgba(180, 220, 255, 0.5)",
+      "rgba(110, 180, 255, 0.55)",
+      "rgba(220, 240, 255, 0.4)",
+      "rgba(45, 110, 240, 0.6)",
+      "rgba(255, 255, 255, 0.35)",
+    ];
+    ctx.strokeStyle = colors[i % colors.length];
+    ctx.lineWidth = 1.0 + Math.random() * 1.8;
     ctx.stroke();
-
-    // Secondary Capillary Veins
-    for (let s = 1; s <= 4; s++) {
-      const sx = rootX + (endX - rootX) * (s / 5);
-      const sy = rootY + (endY - rootY) * (s / 5);
-      ctx.beginPath();
-      ctx.moveTo(sx, sy);
-      ctx.lineTo(sx + 36 * Math.cos(ang + 0.55), sy + 36 * Math.sin(ang + 0.55));
-      ctx.strokeStyle = "rgba(210, 235, 255, 0.45)";
-      ctx.lineWidth = 1.4;
-      ctx.stroke();
-    }
+    ctx.restore();
   }
 
-  // Margin Luminous Spots
-  for (let i = 0; i < 45; i++) {
-    const angle = -0.9 + (i / 45) * 1.95;
-    const r = size * 0.9 + (Math.random() - 0.5) * 32;
-    const px = rootX + Math.cos(angle) * r;
-    const py = rootY + Math.sin(angle) * r;
-    ctx.beginPath();
-    ctx.arc(px, py, 4 + Math.random() * 5.5, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.88)";
-    ctx.fill();
+  // Collarette Ring (Zigzag Undulating Band)
+  ctx.beginPath();
+  const collarettePts = 56;
+  for (let i = 0; i <= collarettePts; i++) {
+    const a = (i / collarettePts) * Math.PI * 2;
+    const r = radius * (0.48 + Math.sin(a * 9) * 0.045 + Math.cos(a * 13) * 0.025);
+    const x = Math.cos(a) * r;
+    const y = Math.sin(a) * r;
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
   }
+  ctx.closePath();
+  ctx.strokeStyle = "rgba(220, 240, 255, 0.75)";
+  ctx.lineWidth = 3.2;
+  ctx.stroke();
+
+  // Dark Outer Limbal Ring
+  const limbalGrad = ctx.createRadialGradient(0, 0, radius * 0.82, 0, 0, radius);
+  limbalGrad.addColorStop(0, "rgba(4, 9, 22, 0)");
+  limbalGrad.addColorStop(0.65, "rgba(4, 9, 22, 0.75)");
+  limbalGrad.addColorStop(1, "rgba(2, 4, 12, 1)");
+  ctx.fillStyle = limbalGrad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Black Pupil Core
+  ctx.fillStyle = "#010204";
+  ctx.beginPath();
+  ctx.arc(0, 0, radius * 0.28, 0, Math.PI * 2);
+  ctx.fill();
 
   ctx.restore();
 
@@ -82,178 +104,6 @@ function createButterflyWingTexture() {
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.needsUpdate = true;
   return texture;
-}
-
-/** Wing shape polygon for procedural mesh generation */
-function createButterflyWingShape(): THREE.Shape {
-  const shape = new THREE.Shape();
-  shape.moveTo(0, 0);
-
-  // Upper Forewing outward sweep
-  shape.bezierCurveTo(0.12, 0.35, 0.45, 1.15, 1.35, 1.42);
-  shape.bezierCurveTo(1.62, 1.3, 1.55, 0.75, 1.18, 0.28);
-
-  // Middle notch between forewing and hindwing
-  shape.bezierCurveTo(1.02, 0.12, 0.92, 0.04, 0.88, 0);
-
-  // Lower Hindwing graceful curve
-  shape.bezierCurveTo(1.18, -0.26, 1.08, -0.88, 0.68, -1.08);
-  shape.bezierCurveTo(0.35, -0.98, 0.15, -0.5, 0, 0);
-
-  return shape;
-}
-
-/** The centerpiece 3D Animated Cybernetic Butterfly */
-function InteractiveButterfly({ lite }: { lite: boolean }) {
-  const butterflyRef = useRef<THREE.Group>(null);
-  const leftWingRef = useRef<THREE.Group>(null);
-  const rightWingRef = useRef<THREE.Group>(null);
-  const [wingTexture, setWingTexture] = useState<THREE.CanvasTexture | null>(null);
-
-  useEffect(() => {
-    const tex = createButterflyWingTexture();
-    setWingTexture(tex);
-    return () => {
-      tex?.dispose();
-    };
-  }, []);
-
-  const wingShape = useMemo(() => createButterflyWingShape(), []);
-
-  useFrame((state, dt) => {
-    const t = state.clock.elapsedTime;
-    const flapSpeed = 10;
-    // Graceful flutter animation
-    const flap = Math.sin(t * flapSpeed) * 0.72;
-    const pitch = Math.cos(t * flapSpeed) * 0.14;
-
-    if (leftWingRef.current) {
-      leftWingRef.current.rotation.y = flap;
-      leftWingRef.current.rotation.z = pitch;
-    }
-    if (rightWingRef.current) {
-      rightWingRef.current.rotation.y = -flap;
-      rightWingRef.current.rotation.z = -pitch;
-    }
-
-    if (butterflyRef.current) {
-      // Natural floating bobbing & drift
-      butterflyRef.current.position.y = Math.sin(t * 2.4) * 0.09;
-      butterflyRef.current.position.z = Math.cos(t * 1.8) * 0.08;
-
-      const px = lite ? 0 : state.pointer.x;
-      const py = lite ? 0 : state.pointer.y;
-
-      // Smooth pointer tracking and organic banking
-      butterflyRef.current.rotation.y = THREE.MathUtils.damp(butterflyRef.current.rotation.y, px * 0.65, 3.5, dt);
-      butterflyRef.current.rotation.x = THREE.MathUtils.damp(butterflyRef.current.rotation.x, -py * 0.45, 3.5, dt);
-      butterflyRef.current.rotation.z = THREE.MathUtils.damp(butterflyRef.current.rotation.z, -px * 0.25, 3.5, dt);
-    }
-  });
-
-  return (
-    <group ref={butterflyRef} scale={1.22} rotation={[0.15, 0, 0]}>
-      {/* Central Cybernetic Body */}
-      <group>
-        {/* Head */}
-        <mesh position={[0, 0.38, 0.02]}>
-          <sphereGeometry args={[0.075, 20, 20]} />
-          <meshPhysicalMaterial color="#0b1124" roughness={0.15} metalness={0.8} clearcoat={1} />
-        </mesh>
-
-        {/* Glowing Optical Eyes */}
-        <mesh position={[-0.045, 0.4, 0.06]}>
-          <sphereGeometry args={[0.024, 12, 12]} />
-          <meshBasicMaterial color="#38bdf8" />
-        </mesh>
-        <mesh position={[0.045, 0.4, 0.06]}>
-          <sphereGeometry args={[0.024, 12, 12]} />
-          <meshBasicMaterial color="#38bdf8" />
-        </mesh>
-
-        {/* Antennae */}
-        <group position={[0, 0.43, 0.03]}>
-          <mesh position={[-0.07, 0.16, 0.04]} rotation={[0.2, -0.4, -0.4]}>
-            <cylinderGeometry args={[0.006, 0.008, 0.32, 8]} />
-            <meshStandardMaterial color="#94a3b8" metalness={0.9} roughness={0.2} />
-          </mesh>
-          <mesh position={[-0.13, 0.3, 0.09]}>
-            <sphereGeometry args={[0.016, 10, 10]} />
-            <meshBasicMaterial color="#38bdf8" />
-          </mesh>
-
-          <mesh position={[0.07, 0.16, 0.04]} rotation={[0.2, 0.4, 0.4]}>
-            <cylinderGeometry args={[0.006, 0.008, 0.32, 8]} />
-            <meshStandardMaterial color="#94a3b8" metalness={0.9} roughness={0.2} />
-          </mesh>
-          <mesh position={[0.13, 0.3, 0.09]}>
-            <sphereGeometry args={[0.016, 10, 10]} />
-            <meshBasicMaterial color="#38bdf8" />
-          </mesh>
-        </group>
-
-        {/* Thorax */}
-        <mesh position={[0, 0.13, 0]}>
-          <cylinderGeometry args={[0.075, 0.09, 0.38, 16]} />
-          <meshPhysicalMaterial color="#0f172a" roughness={0.2} metalness={0.85} clearcoat={1} />
-        </mesh>
-
-        {/* Abdomen (Tapered) */}
-        <mesh position={[0, -0.32, -0.02]} rotation={[-0.1, 0, 0]}>
-          <cylinderGeometry args={[0.07, 0.02, 0.58, 16]} />
-          <meshPhysicalMaterial color="#1e293b" roughness={0.25} metalness={0.7} clearcoat={0.9} />
-        </mesh>
-      </group>
-
-      {/* Left Wing Group (Flaps from Root X = -0.04) */}
-      <group ref={leftWingRef} position={[-0.04, 0.08, 0]}>
-        <mesh position={[-0.01, 0, 0]} rotation={[0, 0, 0]}>
-          <shapeGeometry args={[wingShape]} />
-          <meshPhysicalMaterial
-            map={wingTexture ?? undefined}
-            color="#ffffff"
-            roughness={0.15}
-            metalness={0.25}
-            transmission={0.65}
-            thickness={0.12}
-            ior={1.46}
-            clearcoat={1}
-            clearcoatRoughness={0.1}
-            emissive={ACCENT}
-            emissiveIntensity={0.28}
-            side={THREE.DoubleSide}
-            transparent
-            opacity={0.96}
-          />
-        </mesh>
-      </group>
-
-      {/* Right Wing Group (Mirrored on X) */}
-      <group ref={rightWingRef} position={[0.04, 0.08, 0]}>
-        <group scale={[-1, 1, 1]}>
-          <mesh position={[-0.01, 0, 0]} rotation={[0, 0, 0]}>
-            <shapeGeometry args={[wingShape]} />
-            <meshPhysicalMaterial
-              map={wingTexture ?? undefined}
-              color="#ffffff"
-              roughness={0.15}
-              metalness={0.25}
-              transmission={0.65}
-              thickness={0.12}
-              ior={1.46}
-              clearcoat={1}
-              clearcoatRoughness={0.1}
-              emissive={ACCENT}
-              emissiveIntensity={0.28}
-              side={THREE.DoubleSide}
-              transparent
-              opacity={0.96}
-            />
-          </mesh>
-        </group>
-      </group>
-    </group>
-  );
 }
 
 /** Layer container for depth-based drift on scroll and parallax. */
@@ -299,7 +149,96 @@ function Slab({
   );
 }
 
-/** Complete Rich 3D Composition with Butterfly, Glass Panels, UI Slabs & Holographic Gyro Brackets. */
+/** The centerpiece 3D Eyeball with real-time cursor tracking. */
+function InteractiveEyeBall({ lite }: { lite: boolean }) {
+  const eyeBallRef = useRef<THREE.Group>(null);
+  const [irisTexture, setIrisTexture] = useState<THREE.CanvasTexture | null>(null);
+  const segs = lite ? 40 : 64;
+
+  useEffect(() => {
+    const tex = createIrisCanvasTexture();
+    setIrisTexture(tex);
+    return () => {
+      tex?.dispose();
+    };
+  }, []);
+
+  useFrame((state, dt) => {
+    if (!eyeBallRef.current) return;
+    const px = lite ? 0 : state.pointer.x;
+    const py = lite ? 0 : state.pointer.y;
+
+    const saccadeX = Math.sin(state.clock.elapsedTime * 2.2) * 0.012;
+    const saccadeY = Math.cos(state.clock.elapsedTime * 2.7) * 0.01;
+
+    const targetRotY = px * 0.65 + saccadeX;
+    const targetRotX = -py * 0.5 + saccadeY;
+
+    eyeBallRef.current.rotation.y = THREE.MathUtils.damp(eyeBallRef.current.rotation.y, targetRotY, 4.5, dt);
+    eyeBallRef.current.rotation.x = THREE.MathUtils.damp(eyeBallRef.current.rotation.x, targetRotX, 4.5, dt);
+  });
+
+  return (
+    <group ref={eyeBallRef}>
+      {/* Sclera White Globe */}
+      <mesh>
+        <sphereGeometry args={[1.05, segs, segs]} />
+        <meshPhysicalMaterial
+          color="#ffffff"
+          roughness={0.14}
+          metalness={0.04}
+          clearcoat={1}
+          clearcoatRoughness={0.08}
+          envMapIntensity={1.4}
+        />
+      </mesh>
+
+      {/* Iris Disc on front (+Z = 1.0) */}
+      <group position={[0, 0, 1.0]}>
+        <mesh position={[0, 0, 0.01]}>
+          <circleGeometry args={[0.58, segs]} />
+          {irisTexture ? (
+            <meshStandardMaterial
+              map={irisTexture}
+              roughness={0.2}
+              metalness={0.3}
+              envMapIntensity={1.6}
+              side={THREE.DoubleSide}
+            />
+          ) : (
+            <meshStandardMaterial color={ACCENT} />
+          )}
+        </mesh>
+        <mesh position={[0, 0, 0.015]}>
+          <ringGeometry args={[0.56, 0.59, segs]} />
+          <meshBasicMaterial color="#050a18" />
+        </mesh>
+        <mesh position={[0, 0, 0.02]}>
+          <circleGeometry args={[0.18, 32]} />
+          <meshBasicMaterial color="#020306" />
+        </mesh>
+      </group>
+
+      {/* Glossy Cornea Lens Dome */}
+      <mesh position={[0, 0, 0.74]}>
+        <sphereGeometry args={[0.65, segs, Math.floor(segs / 2), 0, Math.PI * 2, 0, Math.PI * 0.44]} />
+        <meshPhysicalMaterial
+          color="#ffffff"
+          roughness={0.02}
+          transmission={0.96}
+          ior={1.42}
+          thickness={0.5}
+          clearcoat={1}
+          clearcoatRoughness={0.02}
+          envMapIntensity={2.8}
+          transparent
+        />
+      </mesh>
+    </group>
+  );
+}
+
+/** Complete Rich 3D Composition with Eye, Glass Panels, UI Slabs & Holographic Gyro Brackets. */
 function EyeSceneRig({ lite }: { lite: boolean }) {
   const outer = useRef<THREE.Group>(null);
   const inner = useRef<THREE.Group>(null);
@@ -430,10 +369,10 @@ function EyeSceneRig({ lite }: { lite: boolean }) {
           </group>
         </Layer>
 
-        {/* Layer 5: The Interactive 3D Cyber Butterfly Centerpiece */}
+        {/* Layer 5: The Interactive 3D Eyeball Centerpiece */}
         <Layer depth={4.5}>
           <group position={[0.88, 0.08, 0]}>
-            <InteractiveButterfly lite={lite} />
+            <InteractiveEyeBall lite={lite} />
           </group>
         </Layer>
 

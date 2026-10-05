@@ -32,19 +32,11 @@ export function EyeFallback({ className = "" }: { className?: string }) {
           <u />
           <u />
         </div>
-        {/* Centerpiece 3D Cyber Butterfly */}
-        <div className="dim-l bf-butterfly-wrap" style={z(5)}>
-          <div className="bf-wing bf-wing-l">
-            <div className="bf-wing-sheen" />
-          </div>
-          <div className="bf-spine">
-            <div className="bf-antenna-l" />
-            <div className="bf-antenna-r" />
-            <div className="bf-head" />
-            <div className="bf-thorax" />
-          </div>
-          <div className="bf-wing bf-wing-r">
-            <div className="bf-wing-sheen" />
+        {/* Centerpiece 3D Eye with glowing Iris & Pupil */}
+        <div className="dim-l ef-eye-orb" style={z(5)}>
+          <div className="ef-eye-iris">
+            <div className="ef-eye-pupil" />
+            <div className="ef-eye-glint" />
           </div>
         </div>
       </div>
