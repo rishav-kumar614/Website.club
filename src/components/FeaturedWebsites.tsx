@@ -262,6 +262,54 @@ export function FeaturedWebsites() {
             );
           })}
         </div>
+
+        {/* Integrated 4-Step Rental Launch Ribbon */}
+        <Reveal delay={200} className="rental-flow-ribbon">
+          <div className="flow-ribbon-header">
+            <div className="flow-ribbon-tag">
+              <span className="flow-ribbon-dot" />
+              <span>HOW RENTING WORKS</span>
+            </div>
+            <h4 className="flow-ribbon-title">Zero Upfront Build Cost · Live in 48 Hours</h4>
+          </div>
+          <div className="flow-ribbon-grid">
+            <div className="flow-ribbon-step">
+              <div className="flow-step-num-wrap">
+                <span className="flow-step-num">01</span>
+                <span className="flow-step-timeline">Hour 0</span>
+              </div>
+              <h5 className="flow-step-title">Select Flagship</h5>
+              <p className="flow-step-desc">Pick an award-winning 3D architecture tailored to your brand &amp; industry.</p>
+            </div>
+
+            <div className="flow-ribbon-step">
+              <div className="flow-step-num-wrap">
+                <span className="flow-step-num">02</span>
+                <span className="flow-step-timeline">&lt; 24 Hours</span>
+              </div>
+              <h5 className="flow-step-title">Brand Tailoring</h5>
+              <p className="flow-step-desc">We inject your exact colors, typography, product copy, and shader lighting.</p>
+            </div>
+
+            <div className="flow-ribbon-step">
+              <div className="flow-step-num-wrap">
+                <span className="flow-step-num">03</span>
+                <span className="flow-step-timeline">Hour 48</span>
+              </div>
+              <h5 className="flow-step-title">Domain &amp; Launch</h5>
+              <p className="flow-step-desc">Connect your custom domain with instant automated SSL, DNS &amp; edge CDN.</p>
+            </div>
+
+            <div className="flow-ribbon-step">
+              <div className="flow-step-num-wrap">
+                <span className="flow-step-num">04</span>
+                <span className="flow-step-timeline">Continuous</span>
+              </div>
+              <h5 className="flow-step-title">Managed Cloud</h5>
+              <p className="flow-step-desc">Zero dev overhead. 99.9% uptime, GPU maintenance &amp; browser tuning included.</p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -3,12 +3,9 @@ import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { ServicePaths } from "@/components/ServicePaths";
 import { FeaturedWebsites } from "@/components/FeaturedWebsites";
-import { RentalProcess } from "@/components/RentalProcess";
-import { CustomProjects } from "@/components/CustomProjects";
 import { Transformation } from "@/components/Transformation";
-import { Performance } from "@/components/Performance";
-import { WhyWebsiteClub } from "@/components/WhyWebsiteClub";
 import { SelectedWork } from "@/components/SelectedWork";
+import { Performance } from "@/components/Performance";
 import { PricingPreview } from "@/components/PricingPreview";
 import { FAQ } from "@/components/FAQ";
 import { FinalCTA } from "@/components/FinalCTA";
@@ -66,12 +63,9 @@ export default function Home() {
         <Marquee />
         <ServicePaths />
         <FeaturedWebsites />
-        <RentalProcess />
-        <CustomProjects />
         <Transformation />
-        <Performance />
-        <WhyWebsiteClub />
         <SelectedWork />
+        <Performance />
         <PricingPreview />
         <FAQ />
         <FinalCTA />

@@ -115,6 +115,7 @@ export function ServicePaths() {
               <Reveal
                 as="article"
                 key={s.id}
+                id={s.id === "build" ? "custom" : undefined}
                 delay={i * 100}
                 className={`service-card ${isFlagship ? "service-card-flagship" : "service-card-standard"}`}
                 spot

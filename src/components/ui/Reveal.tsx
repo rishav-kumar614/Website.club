@@ -13,6 +13,7 @@ export function Reveal({
   className = "",
   spot = false,
   style,
+  id,
 }: {
   children: ReactNode;
   delay?: number;
@@ -20,12 +21,14 @@ export function Reveal({
   className?: string;
   spot?: boolean;
   style?: CSSProperties;
+  id?: string;
 }) {
   const [ref, inView] = useInView<HTMLElement>();
   return createElement(
     as,
     {
       ref,
+      id,
       "data-spot": spot ? "" : undefined,
       className: `rv ${inView ? "in" : ""} ${className}`,
       style: { "--d": `${delay}ms`, ...style } as CSSProperties,

@@ -7573,3 +7573,120 @@ body::after {
   @keyframes z1 { to { transform: translateZ(8cqw); } } @keyframes z2 { to { transform: translateZ(16cqw); } }
   @keyframes z3 { to { transform: translateZ(24cqw); } } @keyframes z4 { to { transform: translateZ(34cqw); } }
 }
+
+/* =========================================================
+   Streamlined 4-Step Rental Launch Ribbon
+   ========================================================= */
+.rental-flow-ribbon {
+  margin-top: clamp(48px, 6vw, 72px);
+  padding: clamp(28px, 3.5vw, 44px);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(var(--ink) / 0.02) 100%), var(--surf0);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.05);
+}
+
+.flow-ribbon-header {
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+.flow-ribbon-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.flow-ribbon-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.flow-ribbon-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-fg);
+}
+
+.flow-ribbon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  .flow-ribbon-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .flow-ribbon-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flow-ribbon-step {
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(var(--ink) / 0.02);
+  border: 1px solid var(--color-line);
+  transition: all 0.3s ease;
+}
+
+.flow-ribbon-step:hover {
+  background: rgba(37, 99, 235, 0.04);
+  border-color: rgba(37, 99, 235, 0.25);
+  transform: translateY(-3px);
+}
+
+.flow-step-num-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.flow-step-num {
+  font-family: var(--font-mono), monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.flow-step-timeline {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-muted);
+  background: rgba(var(--ink) / 0.05);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.flow-step-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-fg);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.flow-step-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+

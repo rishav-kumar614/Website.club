@@ -182,6 +182,7 @@ export function Performance() {
 
   return (
     <section id="performance" className="section perf-section" aria-labelledby="perf-title">
+      <div id="about" style={{ position: "absolute", top: "-80px" }} />
       <div className="wrap">
         {/* Header */}
         <div className="perf-header">
